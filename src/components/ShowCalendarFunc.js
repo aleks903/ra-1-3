@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import objCalendar from '../calendar.js';
+import moment from 'moment';
 
 export default function Calendar(props) {
-  const { date } = props;
-  const calendar = objCalendar(date);
+  // const { date } = props;
+  const [date, setDate] = useState(moment('2017-2-8'))
+  const [calendar, setCalendar] = useState(objCalendar(date));
+  // const date = new Date(2017, 2, 8);
+  // let calendar = objCalendar(date);
+  const handleUp = () => {
+    setDate(date.add('months', 1));
+    setCalendar(objCalendar(date));
+    // console.log(calendar);
+  }
+
+  const handleDown = () => {
+    setDate(date.subtract('months', 1));
+    
+    setCalendar(objCalendar(date));
+    // console.log(calendar);
+  }
+
+console.log('render');
+
   return (
     <div className="ui-datepicker">
-      <div className="ui-datepicker-material-header">
+      <span onClick={handleUp}> + </span>
+      <span onClick={handleDown}> - </span>
+      {/* <div className="ui-datepicker-material-header">
       <div className="ui-datepicker-material-day">{calendar.nameWeak}</div>
         <div className="ui-datepicker-material-date">
           <div className="ui-datepicker-material-day-num">{calendar.numDay}</div>
@@ -18,7 +39,7 @@ export default function Calendar(props) {
         <div className="ui-datepicker-title">
           <span className="ui-datepicker-month">{calendar.nameMonth}</span>&nbsp;<span className="ui-datepicker-year">{calendar.numYear}</span>
         </div>
-      </div>
+      </div> */}
       <table className="ui-datepicker-calendar">
         <colgroup>
           <col />
